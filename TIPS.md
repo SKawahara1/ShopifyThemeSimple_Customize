@@ -87,7 +87,7 @@ three-quartersのように左側が複数形だと**quarters**と複数形にな
 }
 ```
 
-<a>タグ（リンクのセレクタ）:hoverでマウスが乗った時の設定ができる
+aタグ（リンクのセレクタ）:hoverでマウスが乗った時の設定ができる
 
 ---
 
@@ -110,3 +110,23 @@ linear-gradientで設定できる
 ---
 
 # ログインしたとき名前でなく姓が出るようにする
+
+該当箇所のfirst_nameをlast_nameに変更
+
+###### locales/ja.json
+```json
+263    "customer": {
+          "account": "アカウント",
+          "logged_in_as_html": "{{ last_name }}としてログインしました",
+```
+
+###### sections/header.liquid
+
+```html
+  {% if customer.last_name != blank %}
+      {% capture last_name %}<a href="{{ routes.account_url }}">{{ customer.last_name }}</a>{% endcapture %}
+      {{ 'layout.customer.logged_in_as_html' | t: last_name: last_name }}
+```
+
+---
+
