@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="{{ settings.color_primary }}">
   <link rel="canonical" href="{{ canonical_url }}">
-
+  <!—=========================== Google Fonts ======================= -->
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
+  <!--=============================================================== -->
   {% if settings.favicon %}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
   {% endif %}
@@ -64,7 +66,7 @@
 
       {% section "sidebar" %}
 
-      <main class="main-content grid__item medium-up--four-fifths" id="MainContent" role="main">
+      <main class="main-content grid__item medium-up--three-quarters" id="MainContent" role="main">
         {% unless request.page_type == 'index' %}
           <hr class="hr--border-top small--hide">
         {% endunless %}

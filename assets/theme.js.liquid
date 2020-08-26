@@ -250,15 +250,19 @@ Slate.customerAddressForm = function() {
       hideElement: containerSelector
     });
   });
-
+  const focusMethod = (str)=> {           
+    document.getElementById('AddressLastName' + str).focus();
+  }
   // Toggle new/edit address forms
   $('.address-new-toggle').on('click', function() {
     $newAddressForm.toggleClass('hide');
+    focusMethod('New');
   });
 
   $('.address-edit-toggle').on('click', function() {
     var formId = $(this).data('form-id');
     $('#EditAddress_' + formId).toggleClass('hide');
+    focusMethod('_' + formId);
   });
 
   $('.address-delete').on('click', function() {

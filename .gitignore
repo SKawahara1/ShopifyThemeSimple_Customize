@@ -1,0 +1,16 @@
+# 除外ファイル
+config.yml
+
+# 除外フォルダ
+/config/*
+/locales/*
+
+# 除外フォルダ内で追跡するファイル
+!/config/settings_schema.json
+!/locales/ja.json
+
+# 画像ファイルはコミットしない
+*.jpg
+*.jpeg
+*.gif
+*.png

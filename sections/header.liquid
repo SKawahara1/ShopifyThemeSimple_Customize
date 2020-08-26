@@ -32,24 +32,35 @@
   {% if section.settings.announcement_link == blank %}
     <div class="announcement-bar">
   {% else %}
-    <a href="{{ section.settings.announcement_link }}" class="announcement-bar announcement-bar--link">
+     {% comment %} <a href="{{ section.settings.announcement_link }}" class="announcement-bar announcement-bar--link"> {% endcomment %}
+     <a href="#" class="announcement-bar announcement-bar--link">
   {% endif %}
-
-    <p class="announcement-bar__message site-wrapper">{{ section.settings.announcement_text | escape }}</p>
-
+      <img 
+            src="https://cdn.shopify.com/s/files/1/0458/6609/0652/t/3/assets/header_covid19_20200713.gif?v=1598105024"
+            {% comment %} data-src="{{ img_url }}"
+            data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+            data-aspectratio="{{ section.settings.banner.aspect_ratio }}"
+            data-sizes="auto"
+            style="max-width: {{ 2048 | times: section.settings.banner.aspect_ratio | round }}px;" {% endcomment %}
+            alt="kokuchi"
+            itemprop="image"
+      >
+    <p class="announcement-bar__message site-wrapper">
+      {% comment %} {{ section.settings.announcement_text | escape }} {% endcomment %}
+    </p>
   {% if section.settings.announcement_link == blank %}
     </div>
   {% else %}
-    </a>
+     </a>
   {% endif %}
 {% else %}
-  <div class="page-border"></div>
+  {% comment %} <div class="page-border"></div> {% endcomment %}
 {% endif %}
 
 <div class="site-wrapper">
   <div class="top-bar grid">
 
-    <div class="grid__item medium-up--one-fifth small--one-half">
+    <div class="grid__item medium-up--two-fifths small--one-half">
       <div class="top-bar__search">
         <a href="{{ routes.search_url }}" class="medium-up--hide">
           {% include 'icon-search' %}
@@ -66,12 +77,16 @@
     </div>
 
     {% if shop.customer_accounts_enabled %}
-      <div class="grid__item medium-up--two-fifths small--hide">
+      {% comment %} <div class="grid__item medium-up--two-fifths small--hide">
+      </div> {% endcomment %}
+    {% endif %}
+
+    <div class="grid__item {% if shop.customer_accounts_enabled %} medium-up--three-fifths {% else %} medium-up--four-fifths {% endif %} small--one-half text-right">
         <span class="customer-links small--hide">
           {% if customer %}
-            {% if customer.first_name != blank %}
-              {% capture first_name %}<a href="{{ routes.account_url }}">{{ customer.first_name }}</a>{% endcapture %}
-              {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+            {% if customer.last_name != blank %}
+              {% capture last_name %}<a href="{{ routes.account_url }}">{{ customer.last_name }}</a>{% endcapture %}
+              {{ 'layout.customer.logged_in_as_html' | t: last_name: last_name }}
             {% else %}
               <a href="{{ routes.account_url }}">{{ 'layout.customer.account' | t }}</a>
             {% endif %}
@@ -83,10 +98,7 @@
             {{ 'layout.customer.create_account' | t | customer_register_link }}
           {% endif %}
         </span>
-      </div>
-    {% endif %}
-
-    <div class="grid__item {% if shop.customer_accounts_enabled %} medium-up--two-fifths {% else %} medium-up--four-fifths {% endif %} small--one-half text-right">
+        <span class="vertical-divider"></span>
       <a href="{{ routes.cart_url }}" class="site-header__cart">
         {% include 'icon-cart' %}
         <span class="small--hide">
@@ -99,12 +111,14 @@
 
   <hr class="small--hide hr--border">
 
-  <header class="site-header grid medium-up--grid--table" role="banner">
-    <div class="grid__item small--text-center">
+  {% comment %} <header class="site-header grid medium-up--grid--table" role="banner"> {% endcomment %}
+  <header class="site-header" role="banner">
+    {% comment %} <div class="grid__item small--text-center"> {% endcomment %}
+    <div class="small--text-center">
       <div itemscope itemtype="http://schema.org/Organization">
         {% comment %}
           Use the uploaded logo from theme settings if enabled.
-          Site name uses `h1` tag on homepage, div on other pages.
+          Site name uses `h1` tag on homepage, div on other pages. 
         {% endcomment %}
         {%- assign img_url = section.settings.logo | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
 
@@ -136,9 +150,16 @@
           {% endif %}
         {% else %}
           {% if request.page_type == 'index' %}
-            <h1 class="site-header__site-name">
-              <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a>
-            </h1>
+            {% comment %} <h1 class="site-header__site-name"> {% endcomment %}
+              {% comment %} <a href="{{ routes.root_url }}" itemprop="url">{{ shop.name }}</a> {% endcomment %}
+              <a href="{{ routes.root_url }}" itemprop="url">
+                <img 
+                src="https://cdn.shopify.com/s/files/1/0458/6609/0652/files/MasudaEC_main_banner.png?v=1598150807"
+                alt="kokuchi"
+                itemprop="image"
+                >            
+              </a>
+            {% comment %} </h1> {% endcomment %}
           {% else %}
             <a href="{{ routes.root_url }}" class="site-header__site-name h1" itemprop="url">
               {{ shop.name }}
@@ -150,13 +171,13 @@
         {% endif %}
       </div>
     </div>
-    {% unless section.settings.tagline == blank %}
+    {% comment %} {% unless section.settings.tagline == blank %}
       <div class="grid__item medium-up--text-right small--text-center">
         <div class="rte tagline">
           {{ section.settings.tagline }}
         </div>
       </div>
-    {% endunless %}
+    {% endunless %} {% endcomment %}
   </header>
 </div>
 

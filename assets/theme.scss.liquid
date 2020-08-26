@@ -127,7 +127,7 @@ $mobile-icon-line-thickness: 5px;
 {{ base_font_bold_italic | font_face }}
 {{ header_font_bold | font_face }}
 
-$font-stack-header: {{ header_font.family }}, {{ header_font.fallback_families }};
+$font-stack-header:  'Noto Sans JP', sans-serif;
 $font-weight-header: {{ header_font.weight }};
 $font-weight-header--bold: {{ header_font_bold.weight | default: 700 }};
 $font-style-header: {{ header_font.style }};
@@ -141,7 +141,7 @@ $nav-link-height: $font-size-nav * 3;
 
 $font-weight-body: {{ base_font.weight }};
 $font-weight-body--bold: {{ base_font_bold.weight | default: 700 }};
-$font-stack-body: {{ base_font.family }}, {{ base_font.fallback_families }};
+$font-stack-body:  'Noto Sans JP', sans-serif;
 $font-stack-style: {{ base_font.style }};
 $font-size-base: {{ settings.type_base_size }}; // Henceforth known as 1em
 
@@ -571,6 +571,7 @@ a {
 
 a:active,
 a:hover {
+  background-color: rgb(162, 171, 255);
   outline: 0;
 }
 
@@ -1501,7 +1502,8 @@ svg:not(:root) {
 /*====== Layout styles ======*/
 body,
 html {
-  background-color: $color-body;
+  /* background-color: $color-body; */
+	background: linear-gradient(rgba(200,227,255,0.2),rgba(246,250,255,0.2) 60%,rgba(255,255,255,0.2));
 }
 
 .site-wrapper {
@@ -2090,17 +2092,22 @@ th {
   display: block;
   position: relative;
   width: 100%;
-  text-align: center;
+  height: 30px;
   min-height: 5px;
-  background-color: $color-primary;
+  /* background-color:  $color-primary; */
   text-decoration: none;
+  background: rgb(2, 174, 240);
+  text-align: center;
+  img {
+    max-width: initial;
+  }
 }
 
 .announcement-bar__message {
   display: block;
   font-weight: $font-weight-header;
   margin-bottom: 0;
-  padding: 10px $gutter;
+  padding: 0px $gutter;
   color: $color-btn-primary-text;
 }
 
@@ -2139,7 +2146,7 @@ th {
   .search-bar__input {
     @include placeholder-text($color-body-text, 1);
     background: transparent;
-    border: 0;
+    border: 2px solid #000;
     width: calc(100% - 22px);
   }
 
@@ -2167,11 +2174,19 @@ th {
   padding: 5px;
   visibility: hidden;
 }
-
+.site-header {
+  background:ivory;
+  margin: 30px auto;
+  img {
+    width: 100%;
+    max-width: 880px;
+    min-width: 375px;
+  }
+}
 @include media-query($medium-up) {
   .site-header {
-    height: 140px;
-  }
+    /* height: 95px ; */
+}
 }
 
 #HeaderLogoWrapper {
@@ -2227,6 +2242,7 @@ th {
 
   a {
     color: $color-header-text;
+    font-size: 1.5rem;
   }
 }
 
@@ -2589,7 +2605,7 @@ select {
   border-radius: 0;
   max-width: 100%;
   background-color: $color-form;
-  border: 0;
+  border: 1px solid #aaa;
   padding: $padding-form;
 
   &[disabled],
@@ -2652,7 +2668,8 @@ select::-ms-expand {
   input[type="radio"],
   input[type="checkbox"] {
     display: inline-block;
-
+    min-width: 25px;
+    transform: scale(1.5);
     @include media-query($small) {
       width: auto;
     }
@@ -2838,7 +2855,8 @@ select::-ms-expand {
   display: block;
   width: 100%;
   padding: 9px 0;
-  font-size: $font-size-nav;
+  /* font-size: $font-size-nav; */
+  font-size: 1.5rem;
   color: $color-nav;
 
   @include media-query($medium-up) {
@@ -2865,6 +2883,7 @@ select::-ms-expand {
 .site-nav__submenu .site-nav--active a {
   color: $color-nav-active;
   font-weight: $font-weight-body--bold;
+  font-size: 1.5rem;
 }
 
 @include media-query($small) {
@@ -4228,6 +4247,7 @@ select::-ms-expand {
   width: auto;
   margin-bottom: -$grid-gutter;
   margin-left: -$grid-gutter;
+  font-family: 'Noto Sans JP', sans-serif;
 
   @include media-query($small) {
     margin-bottom: -$gridGutterMobile;
@@ -4369,7 +4389,7 @@ select::-ms-expand {
   padding: 0 5px;
   @include transform(translateY(-50%));
   transition: $transition-link-hover;
-  text-shadow: 0 0 15px $color-text-shadow;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
   font-weight: $font-weight-header;
 
   @include media-query($medium-up) {
