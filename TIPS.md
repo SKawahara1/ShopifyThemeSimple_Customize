@@ -246,7 +246,16 @@ templates/customers/addresses.liquidの19～89行目を消し、下のコード�
 
 # フォームの特定項目にフォーカスする
 
-#### assets/theme.js.liquid: 253-267line
+#### assets/theme.js.liquid: 254-257ine
+
+```javascript
+  // Toggle new/edit address forms
+  $('.address-new-toggle').on('click', function() {
+    $newAddressForm.toggleClass('hide');
+  });
+```
+
+theme.js.liquidの254-257行目の上記コードを以下のように変更する
 
 ```javascript
   const focusMethod = (id)=> {
@@ -259,9 +268,16 @@ templates/customers/addresses.liquidの19～89行目を消し、下のコード�
   });
 ```
 
+`focusMethod('AddressZipNew');`の`'AddressZipNew'`を変更することでフォーカス先を変えられる<br>
+
+例):
+
+- `'AddressZipNew'` → `'AddressLastNameNew'`　で「姓」フォーム
+- `'AddressZipNew'` → `'AddressFirstNameNew'`　で「名前」フォーム
+
 document.getElementById().focus()でフォームの項目にフォーカスできる
-引数idにはフォーカス先のidを入れる
-.address-new-toggleクラスの住所作成ボタンをクリックした時に実行される
+`focusMethod(id)`の引数idはフォーカス先のidを入れる
+住所作成ボタン(.address-new-toggle)をクリックした時に実行される
 
 # フォームの項目を事前に入力し、変更不可にする
 
@@ -284,7 +300,7 @@ readonly属性を入れると変更不可になる
 
 ajaxzip3ライブラリを使って自動入力する
 参照：<https://github.com/ajaxzip3/ajaxzip3.github.io>
-<https://haniwaman.com/ajaxzip3/>
+-<https://haniwaman.com/ajaxzip3/>
 
 #### templates/customers/address.liquid 40-42line
 
@@ -297,9 +313,39 @@ ajaxzip3ライブラリを使って自動入力する
         onKeyUp="AjaxZip3.zip2addr(this,'','address[province]','address[city]');">
 ```
 
-# 入力フォームのスタイルを変更する
-
-![a](https://drive.google.com/file/d/12XpUTQf3Zuw2e_0TTtg8ETB5KSDa4ZlO/view?usp=sharing)
-
 onKeyUp(キーボードを離した時)、郵便番号が該当すれば都道府県(province)と市町村(city)に自動入力される
 郵便番号は8桁まで入力可能で、ハイフンあり/なしのどちらでも自動入力される
+
+# 入力フォームのスタイルを変更する
+
+入力フォームのセル色はテーマのカスタマイズから変更できる
+
+![a](https://imgur.com/2C90VMy.png)
+テーマ設定→色
+
+&darr;
+
+![a](https://i.imgur.com/PoTqnwH.png)
+フォームフィールドの背景
+
+**フォームの枠線**は、
+
+#### assets/theme.scss.liquid 2639-2650line
+
+```css
+.form-vertical {
+  input,
+  select,
+  textarea {
+    display: block;
+    margin-bottom: $padding-form;
+    min-width: 300px;
+
+    @include media-query($small) {
+      width: 100%;
+    }
+  }
+```
+
+`min-width:300px;`の下の行に`border: 1px solid #000;`を挿入すれば枠線が表示される
+枠線のスタイルを変更したいときは[こちら](https://techacademy.jp/magazine/8626)を参照
