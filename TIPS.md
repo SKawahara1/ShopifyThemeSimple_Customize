@@ -1,18 +1,5 @@
----
-marp: true
-
----
-<!-- 
-theme: default
-size: 16:9
-paginate: true
-style: |
-  section {
-    background-color: #FFFFFF;
-  }
--->
-
 # Google Fonts (Noto Sans JP)を使用する方法
+
 参照: <https://note.com/gooddoctor/n/nce84b2ef484d>
 
 参照リンクを見ればだいたいわかるはず、一応詳細を以下に記述
@@ -28,8 +15,8 @@ style: |
 でフォント値を**Noto Sans JP**と**sans-serif**にする
 sans-serifのところ表示不可を回避するためのセーフフォントであれば何でも良い
 
----
 # スライドバーの幅を伸ばす
+
 CSSのGrid Layoutを使ってページ幅を分割し、レイアウトしている
 この比率を変えてやれば幅を伸ばせる
 
@@ -44,8 +31,6 @@ CSSのGrid Layoutを使ってページ幅を分割し、レイアウトしてい
 ページ幅からの分割数と比率を決めている
 
 liquidファイルのクラス名これを入れればレイアウトできる
-
----
 
 サイドバー幅を変更する場合、**layout/theme.liquid**, **sections/sidebar.liquid**
 の2つのリキッドファイルにまたがって設定されているのを変更する
@@ -74,17 +59,14 @@ liquidファイルのクラス名これを入れればレイアウトできる
  <nav class="grid__item small--text-center medium-up--one-quarter" role="navigation">
   ```
 
----
-
 サイドバーが1/5,メインコンテンツが4/5のところを1/4, 3/4に変更することで、
 ページ幅に占めるサイドバーの比率を上げている
 
 ### 注意
+
 one-quarterのように左側の数字が1だと右は**quarter**と単数形だが
 three-quartersのように左側が複数だと**quarters**と複数形になる
 間違えやすいので注意
-
----
 
 # リンクにマウスが乗った時に色を変える
 
@@ -99,9 +81,8 @@ three-quartersのように左側が複数だと**quarters**と複数形になる
 
 aタグ（リンクのセレクタ）:hoverでマウスが乗った時の設定ができる
 
----
-
 # 背景色をグラデーションにする
+
 linear-gradientで設定できる
 ここでは3色でグラデーションを表している
 
@@ -117,8 +98,6 @@ linear-gradientで設定できる
                       rgba(255,255,255,0.2));
     }
 ```
-
----
 
 # ログインしたとき名前でなく姓が出るようにする
 
@@ -140,10 +119,10 @@ linear-gradientで設定できる
       {{ 'layout.customer.logged_in_as_html' | t: last_name: last_name }}
 ```
 
----
-
 # 住所入力フォームの順番を入れ替える
+
 「新しい住所を追加する」場合、liquidファイルの該当箇所は
+
 #### templates/customers/addresses.liquid: 19~89line
 
 ```html
@@ -160,12 +139,12 @@ linear-gradientで設定できる
 <class="grid">内の<class="grid-item">にフォーム項目が入っているので
 その順番を入れ替える
 
----
 もともとは英語圏向けの並びになっているので、日本向けに
 [姓] [名] [郵便番号] [国] [都道府県] [市町村] [番地] [建物/部屋番号] [電話番号] [会社名]
 と並び替える
 
 仕様では「国」は日本で確定のため削除ということだが、「国」フォームをコードから消すとエラーになるので
+
 #### templates/customers/addresses.liquid
 
  ```html
@@ -175,7 +154,6 @@ linear-gradientで設定できる
 
 のように親要素のクラス名に hide を入れ、見た目上消すことで対処する
 
----
 「国」フォームをコードから消すとエラーになる理由はShopifyの住所テンプレートの仕様から外れるからだと思われる
 
 参照：[Shopify Developers - customers/addresses.liquid](https://shopify.dev/docs/themes/files/customers-addresses-liquid)
@@ -184,8 +162,6 @@ linear-gradientで設定できる
 このリンク先の表にあるform typeとname attributeが一致しないと送信できない
 
 郵便番号入力フォームを2つに分割できないのもこれが原因
-
----
 
 ## 住所入力フォームの順番を入れ替える-　コピー用コード
 
@@ -268,8 +244,8 @@ templates/customers/addresses.liquidの19～89行目を消し、下のコード�
 
 ```
 
----
 # フォームの特定項目にフォーカスする
+
 #### assets/theme.js.liquid: 253-267line
 
 ```javascript
@@ -287,10 +263,10 @@ document.getElementById().focus()でフォームの項目にフォーカスで�
 引数idにはフォーカス先のidを入れる
 .address-new-toggleクラスの住所作成ボタンをクリックした時に実行される
 
----
 # フォームの項目を事前に入力し、変更不可にする
 
 formのinputタグで設定する
+
 #### templates/customers/addresses.liquid: 27line
 
 ```html
@@ -304,8 +280,7 @@ formのinputタグで設定する
 valueでデフォルト値を設定できるので、顧客情報データから{{ customer.last_name }}のようにして持ってくる
 readonly属性を入れると変更不可になる
 
----
-# 郵便番号から住所を自動入力
+# 郵便番号から住所を自動入力する
 
 ajaxzip3ライブラリを使って自動入力する
 参照：<https://github.com/ajaxzip3/ajaxzip3.github.io>
@@ -321,6 +296,10 @@ ajaxzip3ライブラリを使って自動入力する
         ...
         onKeyUp="AjaxZip3.zip2addr(this,'','address[province]','address[city]');">
 ```
+
+# 入力フォームのスタイルを変更する
+
+![a](https://drive.google.com/file/d/12XpUTQf3Zuw2e_0TTtg8ETB5KSDa4ZlO/view?usp=sharing)
 
 onKeyUp(キーボードを離した時)、郵便番号が該当すれば都道府県(province)と市町村(city)に自動入力される
 郵便番号は8桁まで入力可能で、ハイフンあり/なしのどちらでも自動入力される
