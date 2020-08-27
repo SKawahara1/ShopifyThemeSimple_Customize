@@ -144,7 +144,7 @@ linear-gradientで設定できる
 
 # 住所入力フォームの順番を入れ替える
 「新しい住所を追加する」場合、liquidファイルの該当箇所は
-#### templates/customers/addresses.liquid: 19~92line
+#### templates/customers/addresses.liquid: 19~89line
 
 ```html
 <div id="AddressNewForm" class="form-address form-vertical hide">
@@ -162,7 +162,7 @@ linear-gradientで設定できる
 
 ---
 もともとは英語圏向けの並びになっているので、日本向けに
-[姓] [名] [郵便番号] [国] [都道府県] [市町村] [番地] [建物/部屋番号] [会社名] [電話番号]
+[姓] [名] [郵便番号] [国] [都道府県] [市町村] [番地] [建物/部屋番号] [電話番号] [会社名]
 と並び替える
 
 仕様では「国」は日本で確定のため削除ということだが、「国」フォームをコードから消すとエラーになるので
@@ -178,12 +178,95 @@ linear-gradientで設定できる
 ---
 「国」フォームをコードから消すとエラーになる理由はShopifyの住所テンプレートの仕様から外れるからだと思われる
 
-参照：[Shopify Developers](https://shopify.dev/docs/themes/files/customers-addresses-liquid)
+参照：[Shopify Developers - customers/addresses.liquid](https://shopify.dev/docs/themes/files/customers-addresses-liquid)
 
 ユーザーのフォーム入力が空でも送信できるが、
 このリンク先の表にあるform typeとname attributeが一致しないと送信できない
 
 郵便番号入力フォームを2つに分割できないのもこれが原因
+
+---
+
+## 住所入力フォームの順番を入れ替える-　コピー用コード
+
+templates/customers/addresses.liquidの19～89行目を消し、下のコードをコピーして挿入すれば日本用の項目順になる
+
+```html
+<div id="AddressNewForm" class="form-address form-vertical hide">
+
+  {% form 'customer_address', customer.new_address %}
+
+    <div class="grid">
+
+      <div class="grid__item">
+        <label for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
+        <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ customer.last_name }}" autocapitalize="words" readonly>
+      </div>
+
+      <div class="grid__item">
+        <label for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
+        <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ customer.first_name }}" autocapitalize="words" readonly>
+      </div>
+
+    </div>
+
+    <div class="grid">
+
+      <div class="grid__item">
+        <label for="AddressZipNew">{{ 'customer.addresses.zip' | t }}</label>
+        <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+        <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','address[province]','address[city]');">
+      </div>
+      <div class="grid__item hide">
+        <label for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+        <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+        {% comment %} <input type="text" id="AddressCountryNew" name="address[country]" value="{{ form.country }}" autocapitalize="words"> {% endcomment %}
+      </div>
+
+      <div class="grid__item" id="AddressProvinceContainerNew">
+        <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+        <select id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}"></select>
+        {% comment %} <input type="text" id="AddressProvinceNew" name="address[province]" value="{{ form.province }}" autocapitalize="words"> {% endcomment %}
+      </div>
+      <div class="grid__item">
+        <label for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
+        <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" autocapitalize="words">
+      </div>
+
+      <div class="grid__item">
+
+        <label for="AddressAddress1New">{{ 'customer.addresses.address1' | t }}</label>
+        <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" autocapitalize="words">
+
+        <label for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
+        <input type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}" autocapitalize="words">
+      </div>
+
+    </div>
+
+    <div class="grid">
+      <div class="grid__item">
+        <label for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
+        <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+
+        <label for="AddressCompanyNew">{{ 'customer.addresses.company' | t }}</label>
+        <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}" autocapitalize="words">
+      </div>
+
+    </div>
+
+    <p>
+      {{ form.set_as_default_checkbox }}
+      <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
+    </p>
+
+    <p><input type="submit" class="btn" value="{{ 'customer.addresses.add' | t }}"></p>
+    <p><button type="button" class="btn--link address-new-toggle">{{ 'customer.addresses.cancel' | t }}</button></p>
+
+  {% endform %}
+</div>
+
+```
 
 ---
 # フォームの特定項目にフォーカスする
@@ -240,3 +323,4 @@ ajaxzip3ライブラリを使って自動入力する
 ```
 
 onKeyUp(キーボードを離した時)、郵便番号が該当すれば都道府県(province)と市町村(city)に自動入力される
+郵便番号は8桁まで入力可能で、ハイフンあり/なしのどちらでも自動入力される
