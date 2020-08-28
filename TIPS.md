@@ -349,3 +349,172 @@ onKeyUp(キーボードを離した時)、郵便番号が該当すれば都道�
 
 `min-width:300px;`の下の行に`border: 1px solid #000;`を挿入すれば枠線が表示される
 枠線のスタイルを変更したいときは[こちら](https://techacademy.jp/magazine/8626)を参照
+
+# 住所入力フォーム(テキスト入力タイプ)にグレー文字の初期値を設定する
+
+htmlのinput要素にplaceholder属性を追加すると初期値を設定できる [こちらを参照](https://weback.net/htmlcss/1284/)
+**注意:** placeholderで初期値を設定できるのはテキスト入力の項目のみで、都道府県項目のように選択タイプだと設定できない
+選択タイプの設定方法は次に説明する
+
+#### templates/customers/address.liquid 19-89line
+
+```html
+<div id="AddressNewForm" class="form-address form-vertical hide">
+
+  {% form 'customer_address', customer.new_address %}
+      ...(略)
+  {% endform %}
+</div>
+```
+
+の所を以下のコードに置き換えれば設定できる
+
+```html
+<div id="AddressNewForm" class="form-address form-vertical hide">
+
+  {% form 'customer_address', customer.new_address %}
+
+    <div class="grid">
+
+      <div class="grid__item">
+        <label for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
+        <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ customer.last_name }}" autocapitalize="words" readonly>
+      </div>
+
+      <div class="grid__item">
+        <label for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
+        <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ customer.first_name }}" autocapitalize="words" readonly>
+      </div>
+
+    </div>
+
+    <div class="grid">
+
+      <div class="grid__item">
+        <label for="AddressZipNew">{{ 'customer.addresses.zip' | t }}</label>
+        <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+        <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" maxlength="8" placeholder="128443"
+        onKeyUp="AjaxZip3.zip2addr(this,'','address[province]','address[city]');">
+      </div>
+      <div class="grid__item hide">
+        <label for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+        <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+        {% comment %} <input type="text" id="AddressCountryNew" name="address[country]" value="{{ form.country }}" autocapitalize="words"> {% endcomment %}
+      </div>
+
+      <div class="grid__item" id="AddressProvinceContainerNew">
+        <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+        <select id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}"></select>
+        {% comment %} <input type="text" id="AddressProvinceNew" name="address[province]" value="{{ form.province }}" autocapitalize="words"> {% endcomment %}
+      </div>
+      <div class="grid__item">
+        <label for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
+        <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" autocapitalize="words" placeholder="京都市伏見区竹田藁屋町">
+      </div>
+
+      <div class="grid__item">
+
+        <label for="AddressAddress1New">{{ 'customer.addresses.address1' | t }}</label>
+        <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" autocapitalize="words" placeholder="50">
+
+        <label for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
+        <input type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}" autocapitalize="words" placeholder="増田医科器械ビル 101">
+      </div>
+
+    </div>
+
+    <div class="grid">
+      <div class="grid__item">
+        <label for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
+        <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+
+        <label for="AddressCompanyNew">{{ 'customer.addresses.company' | t }}</label>
+        <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}" autocapitalize="words">
+      </div>
+
+    </div>
+
+    <p>
+      {{ form.set_as_default_checkbox }}
+      <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
+    </p>
+
+    <p><input type="submit" class="btn" value="{{ 'customer.addresses.add' | t }}"></p>
+    <p><button type="button" class="btn--link address-new-toggle">{{ 'customer.addresses.cancel' | t }}</button></p>
+
+  {% endform %}
+</div>
+```
+
+# 住所入力フォーム(選択タイプ)に初期値を設定する
+
+#### assets/theme.js.liquid231-240
+
+```javascript
+  // Initialize observers on address selectors, defined in shopify_common.js
+  if (Shopify) {
+    new Shopify.CountryProvinceSelector(
+      'AddressCountryNew',
+      'AddressProvinceNew',
+      {
+        hideElement: 'AddressProvinceContainerNew'
+      }
+    );
+  }
+```
+
+の箇所を以下のコードに変更する
+
+```javascript
+  const selectInitialProvince = (provinceName) =>{
+    const provinceOptions =  document.getElementById('AddressProvinceNew').options;
+    const provinceArray = [].slice.call(provinceOptions);
+    const indexNum = provinceArray.findIndex(option => option.value === provinceName);
+    provinceOptions[indexNum].selected = true;
+  }
+  // Initialize observers on address selectors, defined in shopify_common.js
+  if (Shopify) {
+    new Shopify.CountryProvinceSelector(
+      'AddressCountryNew',
+      'AddressProvinceNew',
+      {
+        hideElement: 'AddressProvinceContainerNew'
+      }
+    );
+    selectInitialProvince('Kyōto');
+  }
+```
+
+`const provinceOptions =  document.getElementById('AddressProvinceNew').options;`
+で都道府県の[select 要素に含まれる option 要素をすべて取得する](https://developer.mozilla.org/ja/docs/Web/API/HTMLSelectElement/options)
+
+`const provinceArray = [].slice.call(provinceOptions);`
+取得したoption要素は配列ではないので、[配列に変換する](https://lab.syncer.jp/Web/JavaScript/Snippet/53/)  
+
+`const indexNum = provinceArray.findIndex(option => option.value === provinceName);`  
+配列から引数`provinceName`の[index番号を取得する](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)  
+
+`provinceOptions[indexNum].selected = true;`  
+取得したindex番号から初期値に設定したいoption要素を導き、[初期値として設定する](https://techacademy.jp/magazine/24290)  
+
+`selectInitialProvince('Kyōto');`で引数に京都を設定し、実行する  
+`Kyoto`ではなく`Kyōto`なことに注意  
+
+# 住所入力フィールドのラベルを変更する
+
+#### locales/ja.json 153-154line
+
+```json
+  "address1": "住所",
+  "address2": "住所",
+```
+
+を
+
+```json
+  "address1": "地名\/番地",
+  "address2": "建物名\/部屋番号",
+```
+
+に変更する  
+`"地名\/番地",`の`\`はjsonファイルにおける[/(スラッシュ)文字のエスケープ処理](https://www.ipentec.com/document/json-character-escape)

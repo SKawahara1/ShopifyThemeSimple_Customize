@@ -228,6 +228,12 @@ Slate.customerAddressForm = function() {
 
   if (!$newAddressForm.length) return;
 
+  const selectInitialProvince = (provinceName) =>{
+    const provinceOptions =  document.getElementById('AddressProvinceNew').options;
+    const provinceArray = [].slice.call(provinceOptions);
+    const indexNum = provinceArray.findIndex(option => option.value === provinceName);
+    provinceOptions[indexNum].selected = true;
+  }
   // Initialize observers on address selectors, defined in shopify_common.js
   if (Shopify) {
     new Shopify.CountryProvinceSelector(
@@ -237,8 +243,8 @@ Slate.customerAddressForm = function() {
         hideElement: 'AddressProvinceContainerNew'
       }
     );
+    selectInitialProvince('Kyōto');
   }
-
   // Initialize each edit form's country/province selector
   $('.address-country-option').each(function() {
     var formId = $(this).data('form-id');
