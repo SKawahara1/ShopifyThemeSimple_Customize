@@ -1,3 +1,23 @@
+<!-- TOC -->
+
+- [Google Fonts Noto Sans JPを使用する方法](#google-fonts-noto-sans-jp%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E6%96%B9%E6%B3%95)
+- [スライドバーの幅を伸ばす](#%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%89%E3%83%90%E3%83%BC%E3%81%AE%E5%B9%85%E3%82%92%E4%BC%B8%E3%81%B0%E3%81%99)
+- [リンクにマウスが乗った時に色を変える](#%E3%83%AA%E3%83%B3%E3%82%AF%E3%81%AB%E3%83%9E%E3%82%A6%E3%82%B9%E3%81%8C%E4%B9%97%E3%81%A3%E3%81%9F%E6%99%82%E3%81%AB%E8%89%B2%E3%82%92%E5%A4%89%E3%81%88%E3%82%8B)
+- [背景色をグラデーションにする](#%E8%83%8C%E6%99%AF%E8%89%B2%E3%82%92%E3%82%B0%E3%83%A9%E3%83%87%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%99%E3%82%8B)
+- [ログインしたとき名前でなく姓が出るようにする](#%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E3%81%97%E3%81%9F%E3%81%A8%E3%81%8D%E5%90%8D%E5%89%8D%E3%81%A7%E3%81%AA%E3%81%8F%E5%A7%93%E3%81%8C%E5%87%BA%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B)
+- [住所入力フォームの順番新規作成時を入れ替える](#%E4%BD%8F%E6%89%80%E5%85%A5%E5%8A%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%81%AE%E9%A0%86%E7%95%AA%E6%96%B0%E8%A6%8F%E4%BD%9C%E6%88%90%E6%99%82%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B)
+  - [住所入力フォーム新規作成時の順番を入れ替える-　コピー用コード](#%E4%BD%8F%E6%89%80%E5%85%A5%E5%8A%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E6%96%B0%E8%A6%8F%E4%BD%9C%E6%88%90%E6%99%82%E3%81%AE%E9%A0%86%E7%95%AA%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B-%E3%80%80%E3%82%B3%E3%83%94%E3%83%BC%E7%94%A8%E3%82%B3%E3%83%BC%E3%83%89)
+  - [住所入力フォーム編集時の順番を入れ替える-　コピー用コード](#%E4%BD%8F%E6%89%80%E5%85%A5%E5%8A%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E7%B7%A8%E9%9B%86%E6%99%82%E3%81%AE%E9%A0%86%E7%95%AA%E3%82%92%E5%85%A5%E3%82%8C%E6%9B%BF%E3%81%88%E3%82%8B-%E3%80%80%E3%82%B3%E3%83%94%E3%83%BC%E7%94%A8%E3%82%B3%E3%83%BC%E3%83%89)
+- [フォームの特定項目にフォーカスする](#%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%81%AE%E7%89%B9%E5%AE%9A%E9%A0%85%E7%9B%AE%E3%81%AB%E3%83%95%E3%82%A9%E3%83%BC%E3%82%AB%E3%82%B9%E3%81%99%E3%82%8B)
+- [フォームの項目を事前に入力し、変更不可にする](#%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%81%AE%E9%A0%85%E7%9B%AE%E3%82%92%E4%BA%8B%E5%89%8D%E3%81%AB%E5%85%A5%E5%8A%9B%E3%81%97%E5%A4%89%E6%9B%B4%E4%B8%8D%E5%8F%AF%E3%81%AB%E3%81%99%E3%82%8B)
+- [郵便番号から住所を自動入力する](#%E9%83%B5%E4%BE%BF%E7%95%AA%E5%8F%B7%E3%81%8B%E3%82%89%E4%BD%8F%E6%89%80%E3%82%92%E8%87%AA%E5%8B%95%E5%85%A5%E5%8A%9B%E3%81%99%E3%82%8B)
+- [入力フォームのスタイルを変更する](#%E5%85%A5%E5%8A%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%81%AE%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B)
+- [住所入力フォームテキスト入力タイプにグレー文字の初期値を設定する](#%E4%BD%8F%E6%89%80%E5%85%A5%E5%8A%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E5%85%A5%E5%8A%9B%E3%82%BF%E3%82%A4%E3%83%97%E3%81%AB%E3%82%B0%E3%83%AC%E3%83%BC%E6%96%87%E5%AD%97%E3%81%AE%E5%88%9D%E6%9C%9F%E5%80%A4%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B)
+- [住所入力フォーム選択タイプに初期値を設定する](#%E4%BD%8F%E6%89%80%E5%85%A5%E5%8A%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E9%81%B8%E6%8A%9E%E3%82%BF%E3%82%A4%E3%83%97%E3%81%AB%E5%88%9D%E6%9C%9F%E5%80%A4%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B)
+- [住所入力フィールドのラベルを変更する](#%E4%BD%8F%E6%89%80%E5%85%A5%E5%8A%9B%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AE%E3%83%A9%E3%83%99%E3%83%AB%E3%82%92%E5%A4%89%E6%9B%B4%E3%81%99%E3%82%8B)
+
+<!-- /TOC -->
+
 # Google Fonts (Noto Sans JP)を使用する方法
 
 参照: <https://note.com/gooddoctor/n/nce84b2ef484d>
@@ -119,7 +139,7 @@ linear-gradientで設定できる
       {{ 'layout.customer.logged_in_as_html' | t: last_name: last_name }}
 ```
 
-# 住所入力フォームの順番を入れ替える
+# 住所入力フォームの順番(新規作成時)を入れ替える
 
 「新しい住所を追加する」場合、liquidファイルの該当箇所は
 
@@ -163,7 +183,7 @@ linear-gradientで設定できる
 
 郵便番号入力フォームを2つに分割できないのもこれが原因
 
-## 住所入力フォームの順番を入れ替える-　コピー用コード
+## 住所入力フォーム(新規作成時)の順番を入れ替える-　コピー用コード
 
 templates/customers/addresses.liquidの19～89行目を消し、下のコードをコピーして挿入すれば日本用の項目順になる
 
@@ -242,6 +262,85 @@ templates/customers/addresses.liquidの19～89行目を消し、下のコード�
   {% endform %}
 </div>
 
+```
+
+## 住所入力フォーム(編集時)の順番を入れ替える-　コピー用コード
+
+#### templates/customers/addresses.liquid: 113-17line
+
+```html
+  <div id="EditAddress_{{ address.id }}" class="hide form-vertical">
+    {% form 'customer_address', address %}
+    ...(略)
+    {% endform %}
+  </div>
+```
+
+の部分を消し、以下のコピーを挿入する
+
+```html
+  <div id="EditAddress_{{ address.id }}" class="hide form-vertical">
+    {% form 'customer_address', address %}
+
+      <h3 class="h4">{{ 'customer.addresses.edit_address' | t }}</h3>
+
+    <div class="grid">
+
+      <div class="grid__item">
+        <label for="AddressLastName_{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+        <input type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" autocapitalize="words">
+      </div>
+
+      <div class="grid__item">
+        <label for="AddressFirstName_{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+        <input type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" autocapitalize="words">
+      </div>
+
+    </div>
+
+    <label for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
+    <input type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','address[province]','address[city]');">
+  
+    <div class = "hide">
+      <label for="AddressCountry_{{ form.id }}">{{ 'customer.addresses.country' | t }}</label>
+      <select id="AddressCountry_{{ form.id }}" class="address-country-option" data-form-id="{{ form.id }}" name="address[country]" data-default="{{ form.country }}">{{ all_country_option_tags }}</select>
+    </div>
+  
+    <div id="AddressProvinceContainer_{{ form.id }}">
+      <label for="AddressProvince_{{ form.id }}">{{ 'customer.addresses.province' | t }}</label>
+      <select id="AddressProvince_{{ form.id }}" name="address[province]" data-default="{{ form.province }}"></select>
+    </div>
+
+    <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
+    <input type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ form.city }}" autocapitalize="words">
+
+    <label for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
+    <input type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" autocapitalize="words">
+
+    <label for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
+    <input type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" autocapitalize="words">
+  
+
+    <div class="grid">
+      <div class="grid__item">
+        <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
+        <input type="tel" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ form.phone }}">
+
+        <label for="AddressCompany_{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
+        <input type="text" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{ form.company }}" autocapitalize="words">
+      </div>
+
+    </div>
+      <p>
+        {{ form.set_as_default_checkbox }}
+        <label for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}</label>
+      </p>
+
+      <p><input type="submit" class="btn" value="{{ 'customer.addresses.update' | t }}"></p>
+      <p><button type="button" class="btn--link address-edit-toggle" data-form-id="{{ form.id }}">{{ 'customer.addresses.cancel' | t }}</button></p>
+
+    {% endform %}
+  </div>
 ```
 
 # フォームの特定項目にフォーカスする
